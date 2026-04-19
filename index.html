@@ -19,8 +19,9 @@
       </section>
 
       <!-- Public applicant-facing form. Edit labels and fields here when the application changes. -->
-      <form id="applicationForm" class="application-form" novalidate>
+      <form id="applicationForm" class="application-form" method="POST" action="/api/submit-form" enctype="application/x-www-form-urlencoded" novalidate>
         <div id="errorSummary" class="error-summary" tabindex="-1" hidden></div>
+        <input type="hidden" name="formType" value="application">
 
         <!-- Section 1: applicant contact details -->
         <section class="form-section" aria-labelledby="personalInfoTitle">
@@ -36,6 +37,15 @@
 
           <label for="address">Home Address <span>*</span></label>
           <textarea id="address" name="address" rows="3" autocomplete="street-address" required></textarea>
+
+          <label for="city">City <span>*</span></label>
+          <input id="city" name="city" autocomplete="address-level2" required>
+
+          <label for="state">State <span>*</span></label>
+          <input id="state" name="state" autocomplete="address-level1" required>
+
+          <label for="zipCode">ZIP Code <span>*</span></label>
+          <input id="zipCode" name="zipCode" autocomplete="postal-code" required>
         </section>
 
         <!-- Section 2: role interest and schedule availability -->
@@ -46,6 +56,15 @@
 
           <label for="availability">Availability <span>*</span></label>
           <textarea id="availability" name="availability" rows="4" placeholder="Example: Monday-Friday mornings, weekends, overnight shifts" required></textarea>
+
+          <label for="dateAvailable">Date Available to Start <span>*</span></label>
+          <input id="dateAvailable" name="dateAvailable" type="date" required>
+
+          <label for="daysAvailable">Days Available <span>*</span></label>
+          <input id="daysAvailable" name="daysAvailable" placeholder="Example: Monday, Wednesday, Friday; weekends" required>
+
+          <label for="preferredShifts">Preferred Shift(s) <span>*</span></label>
+          <input id="preferredShifts" name="preferredShifts" placeholder="Example: mornings, evenings, overnights" required>
         </section>
 
         <!-- Section 3: basic required qualifications -->
@@ -62,6 +81,12 @@
             <legend>Do you have reliable transportation? <span>*</span></legend>
             <label class="choice"><input type="radio" name="reliableTransportation" value="Yes" required> Yes</label>
             <label class="choice"><input type="radio" name="reliableTransportation" value="No"> No</label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Do you have a valid driver's license? <span>*</span></legend>
+            <label class="choice"><input type="radio" name="validDriversLicense" value="Yes" required> Yes</label>
+            <label class="choice"><input type="radio" name="validDriversLicense" value="No"> No</label>
           </fieldset>
 
           <fieldset>
@@ -290,6 +315,9 @@
           <label for="emergencyName">Emergency Contact Name <span>*</span></label>
           <input id="emergencyName" name="emergencyName" required>
 
+          <label for="emergencyRelationship">Emergency Contact Relationship <span>*</span></label>
+          <input id="emergencyRelationship" name="emergencyRelationship" required>
+
           <label for="emergencyPhone">Emergency Contact Phone Number <span>*</span></label>
           <input id="emergencyPhone" name="emergencyPhone" type="tel" autocomplete="tel" required>
         </section>
@@ -332,6 +360,151 @@
           <input id="signatureDate" name="signatureDate" type="date" required>
         </section>
 
+        <!-- Job description acknowledgment is included in the final PDF hiring packet. -->
+        <section class="form-section" aria-labelledby="jobDescriptionTitle">
+          <h2 id="jobDescriptionTitle">Job Description Acknowledgment</h2>
+          <div class="helper-note">
+            <p><strong>Overview</strong></p>
+            <p>The PAS Attendant provides non-skilled, non-technical personal care services to clients in their homes. Services are delivered in accordance with the client's service plan and aim to support independence, safety, and daily functioning.</p>
+
+            <p><strong>Primary Responsibilities</strong></p>
+            <p>The PAS Attendant may assist with the following tasks as authorized in the service plan:</p>
+
+            <p><strong>Personal Care</strong></p>
+            <ul>
+              <li>Bathing, grooming, and hygiene</li>
+              <li>Dressing and undressing</li>
+              <li>Toileting and incontinence care</li>
+              <li>Mobility assistance and transfers</li>
+            </ul>
+
+            <p><strong>Daily Living Activities</strong></p>
+            <ul>
+              <li>Meal preparation and feeding assistance</li>
+              <li>Light housekeeping (laundry, dishes, cleaning client areas)</li>
+              <li>Shopping and errands (if authorized)</li>
+            </ul>
+
+            <p><strong>Health-Related Tasks (Non-Skilled)</strong></p>
+            <ul>
+              <li>Medication reminders (no administration)</li>
+              <li>Observing and reporting changes in client condition</li>
+            </ul>
+
+            <p><strong>Companionship & Support</strong></p>
+            <ul>
+              <li>Providing companionship and supervision</li>
+              <li>Ensuring client safety at all times</li>
+            </ul>
+
+            <p><strong>Prohibited Tasks</strong></p>
+            <p>PAS Attendants may NOT:</p>
+            <ul>
+              <li>Perform skilled nursing tasks</li>
+              <li>Administer medications</li>
+              <li>Provide medical diagnoses or treatments</li>
+              <li>Handle client finances (unless specifically authorized and documented)</li>
+            </ul>
+
+            <p><strong>Minimum Qualifications</strong></p>
+            <ul>
+              <li>Must be at least 18 years of age</li>
+              <li>Must pass required background checks per HHSC regulations</li>
+              <li>Ability to read, write, and communicate effectively in English</li>
+              <li>Physically capable of performing job duties (lifting, bending, standing)</li>
+              <li>Demonstrates reliability, professionalism, and compassion</li>
+            </ul>
+
+            <p><strong>Training Requirements</strong></p>
+            <ul>
+              <li>Completion of agency orientation prior to providing services</li>
+              <li>Ongoing in-service training as required by CRS and HHSC</li>
+              <li>Review and understanding of client rights, abuse/neglect/exploitation reporting, infection control procedures, and confidentiality (HIPAA)</li>
+            </ul>
+
+            <p><strong>Work Schedule</strong></p>
+            <ul>
+              <li>Hours vary based on client needs and assigned schedule</li>
+              <li>Must maintain punctuality and reliability</li>
+              <li>Must notify supervisor of absences or schedule conflicts immediately</li>
+            </ul>
+          </div>
+
+          <label class="choice checkbox-choice">
+            <input type="checkbox" name="jobDescriptionAcknowledged" required>
+            <span>I have read and understand the duties and responsibilities of the Personal Assistance Services (PAS) Attendant position.</span>
+          </label>
+        </section>
+
+        <section class="form-section" aria-labelledby="confidentialityTitle">
+          <h2 id="confidentialityTitle">Confidentiality &amp; HIPAA Agreement</h2>
+          <p class="helper-note">I understand that client information is private and confidential. I agree to protect all personal, health, and service-related information and to follow Community Regenerative Solutions confidentiality and HIPAA expectations.</p>
+          <label class="choice checkbox-choice">
+            <input type="checkbox" name="confidentialityAcknowledged" required>
+            <span>I acknowledge and agree</span>
+          </label>
+        </section>
+
+        <section class="form-section" aria-labelledby="backgroundCheckTitle">
+          <h2 id="backgroundCheckTitle">Background Check Authorization</h2>
+          <p class="helper-note">I authorize Community Regenerative Solutions to complete required background, registry, and employment-related checks as permitted by law and agency policy.</p>
+          <label class="choice checkbox-choice">
+            <input type="checkbox" name="backgroundCheckAcknowledged" required>
+            <span>I acknowledge and agree</span>
+          </label>
+        </section>
+
+        <section class="form-section" aria-labelledby="aneTitle">
+          <h2 id="aneTitle">Abuse, Neglect, and Exploitation (ANE) Reporting</h2>
+          <p class="helper-note">I understand that abuse, neglect, and exploitation must be reported according to applicable requirements. I agree to follow agency procedures for reporting concerns immediately.</p>
+          <label class="choice checkbox-choice">
+            <input type="checkbox" name="aneAcknowledged" required>
+            <span>I acknowledge and agree</span>
+          </label>
+        </section>
+
+        <section class="form-section" aria-labelledby="clientRightsTitle">
+          <h2 id="clientRightsTitle">Client Rights Acknowledgment</h2>
+          <p class="helper-note">I understand that clients have the right to dignity, respect, privacy, choice, safety, and services delivered according to the service plan. I agree to respect and support client rights at all times.</p>
+          <label class="choice checkbox-choice">
+            <input type="checkbox" name="clientRightsAcknowledged" required>
+            <span>I acknowledge and agree</span>
+          </label>
+        </section>
+
+        <section class="form-section" aria-labelledby="atWillTitle">
+          <h2 id="atWillTitle">At-Will Employment Statement</h2>
+          <p class="helper-note">I understand that employment with Community Regenerative Solutions is at-will unless otherwise stated in writing. Either I or the agency may end employment at any time, with or without cause, as permitted by law.</p>
+          <label class="choice checkbox-choice">
+            <input type="checkbox" name="atWillAcknowledged" required>
+            <span>I acknowledge and agree</span>
+          </label>
+        </section>
+
+        <section class="form-section" aria-labelledby="attendanceTitle">
+          <h2 id="attendanceTitle">Attendance &amp; Reliability Policy</h2>
+          <p class="helper-note">I understand that punctuality, reliability, and timely communication are essential to client safety and service continuity. I agree to follow assigned schedules and notify my supervisor immediately of absences or schedule conflicts.</p>
+          <label class="choice checkbox-choice">
+            <input type="checkbox" name="attendanceAcknowledged" required>
+            <span>I acknowledge and agree</span>
+          </label>
+        </section>
+
+        <section class="form-section" aria-labelledby="finalAcknowledgmentTitle">
+          <h2 id="finalAcknowledgmentTitle">Final Acknowledgment</h2>
+          <p class="helper-note">By signing below, I confirm that I have read, understand, and agree to all sections above, including the employment application, job description, confidentiality expectations, background check authorization, ANE reporting requirements, client rights, at-will employment statement, and attendance and reliability policy.</p>
+
+          <label for="finalAcknowledgmentFullName">Full Name <span>*</span></label>
+          <input id="finalAcknowledgmentFullName" name="finalAcknowledgmentFullName" required>
+
+          <label for="finalAcknowledgmentSignature">Signature <span>*</span></label>
+          <input id="finalAcknowledgmentSignature" name="finalAcknowledgmentSignature" placeholder="Type your full legal name" required>
+
+          <label for="finalAcknowledgmentDate">Date <span>*</span></label>
+          <input id="finalAcknowledgmentDate" name="finalAcknowledgmentDate" type="date" required>
+        </section>
+
+        <div id="submissionStatus" class="submission-status" role="status" aria-live="polite" hidden></div>
         <button class="submit-button" type="submit">Submit Application</button>
       </form>
 
@@ -347,4 +520,3 @@
     <script src="src/app.js"></script>
   </body>
 </html>
- 
